@@ -1,22 +1,21 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
 import { styles } from './styles';
 
-type Props = RectButtonProps & {
+type Props = {
   title: string;
   background: string;
   textColor?: string;
   borderColor?: string;
+  onPress?: () => void;
 };
 
-export function ButtonIcon({ title, background, textColor, borderColor, ...rest }: Props) {
+export function ButtonIcon({ title, background, textColor, borderColor, onPress }: Props) {
   return (
-    <View style={{ borderColor: borderColor }}>
-      <RectButton style={[styles.container, { backgroundColor: background }]} {...rest}>
-        <Text style={[styles.text, { color: textColor }]}> {title} </Text>
-      </RectButton>
-    </View>
+    <TouchableOpacity style={[styles.container, { backgroundColor: background }]} onPress={onPress}>
+      <Text style={[styles.text, { color: textColor }]}> {title} </Text>
+    </TouchableOpacity>
   );
 }

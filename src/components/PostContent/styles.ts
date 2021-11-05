@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
     width: '90%',
     height: 90,
     alignSelf: 'center',
-    backgroundColor: 'red',
+    backgroundColor: theme.colors.primary,
   },
   modalText: {
     fontFamily: theme.fonts.text400,
@@ -78,5 +78,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginTop: 10,
     marginRight: 5,
+  },
+
+  button: {
+    width: 50,
+    height: 20,
+    backgroundColor: 'red',
+    borderColor: 'blue',
+    borderWidth: 1,
   },
 });

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, Modal, Pressable, Alert } from 'react-native';
+import { View, Text, Modal, Pressable, Alert, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { ButtonIcon } from '../ButtonIcon';
 
 import { styles } from './styles';
 import { theme } from '../../global/styles/theme';
+import { PostInput } from '../PostInput';
 type Props = {
   name: string;
   time: string;
@@ -15,24 +15,12 @@ type Props = {
 };
 
 export function PostContent({ name, time, title, content }: Props) {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
 
-  // const modalConfirmDelete = () => {
-  //   return Alert.alert('Are you sure you want to delete this item?', '', [
-  //     //Yes button
-  //     {
-  //       text: 'Yes',
-  //       onPress: () => {
-  //         setModalVisible(false);
-  //       },
-  //     },
-  //     //No button
-  //     //Does nothing but dismiss the dialog when tapped
-  //     {
-  //       text: 'No',
-  //     },
-  //   ]);
-  // };
+  const modalBackgroundStyle = {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  };
 
   return (
     <View style={styles.container}>
@@ -43,7 +31,7 @@ export function PostContent({ name, time, title, content }: Props) {
           size={15}
           color={theme.colors.primary}
           style={styles.icon}
-          // onPress={() => modalConfirmDelete()}
+          onPress={() => setModalDelete(true)}
         />
 
         <MaterialCommunityIcons
@@ -51,6 +39,7 @@ export function PostContent({ name, time, title, content }: Props) {
           size={15}
           color={theme.colors.primary}
           style={styles.icon}
+          onPress={() => setModalEdit(false)}
         />
       </View>
       <View style={styles.wrapper}>
@@ -61,37 +50,30 @@ export function PostContent({ name, time, title, content }: Props) {
         <Text style={styles.content}>{content}</Text>
       </View>
 
-      {/* Modal Delete Confirmation */}
+      {/* Delete item modal */}
 
-      {/* <Modal
-        animationType="fade"
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-        transparent={true}
-      >
-        <View
-          style={styles.centeredView}
-        >
+      <Modal animationType="fade" visible={modalDelete} onRequestClose={() => setModalDelete(false)} transparent={true}>
+        <View style={[styles.centeredView, modalBackgroundStyle]}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalText}>Are you sure you want to delete this item?</Text>
             <View style={styles.buttonWrapper}>
-              <Pressable style={styles.button}>
-
-              </Pressable>
               <ButtonIcon
                 title="Cancel"
                 background={theme.colors.primary}
                 textColor={theme.colors.secondary100}
                 borderColor={theme.colors.secondary100}
-                onPress={() => {
-                  setModalVisible(false);
-                }}
+                onPress={() => setModalDelete(false)}
               />
               <ButtonIcon title="OK" background={theme.colors.primary} textColor={theme.colors.secondary100} />
             </View>
           </View>
         </View>
-      </Modal> */}
+      </Modal>
+
+      {/* Edit item modal */}
+      <Modal visible={modalEdit} onRequestClose={() => setModalDelete(false)} transparent={true}>
+        <PostInput />
+      </Modal>
     </View>
   );
 }
