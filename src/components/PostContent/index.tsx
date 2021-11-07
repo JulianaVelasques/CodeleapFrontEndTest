@@ -12,9 +12,10 @@ type Props = {
   time: string;
   title: string;
   content: string;
+  hasIcons?: boolean;
 };
 
-export function PostContent({ name, time, title, content }: Props) {
+export function PostContent({ name, time, title, content, hasIcons }: Props) {
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
 
@@ -26,27 +27,33 @@ export function PostContent({ name, time, title, content }: Props) {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
-        <MaterialCommunityIcons
-          name={'delete-forever'}
-          size={15}
-          color={theme.colors.primary}
-          style={styles.icon}
-          onPress={() => setModalDelete(true)}
-        />
 
-        <MaterialCommunityIcons
-          name={'square-edit-outline'}
-          size={15}
-          color={theme.colors.primary}
-          style={styles.icon}
-          onPress={() => setModalEdit(false)}
-        />
+        {hasIcons && (
+          <MaterialCommunityIcons
+            name={'delete-forever'}
+            size={15}
+            color={theme.colors.primary}
+            style={styles.icon}
+            onPress={() => setModalDelete(true)}
+          />
+        )}
+        {hasIcons && (
+          <MaterialCommunityIcons
+            name={'square-edit-outline'}
+            size={15}
+            color={theme.colors.primary}
+            style={styles.icon}
+            onPress={() => setModalEdit(false)}
+          />
+        )}
       </View>
+
       <View style={styles.wrapper}>
         <View style={styles.wrapperData}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.time}>{time}</Text>
         </View>
+
         <Text style={styles.content}>{content}</Text>
       </View>
 

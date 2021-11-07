@@ -2,8 +2,11 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { StatusBar } from 'react-native';
 import AppLoading from 'expo-app-loading';
+// import { Provider } from 'react-redux';
 
 import { Routes } from './src/routes';
+import { store } from './src/redux/store';
+import { Provider, useSelector } from 'react-redux';
 
 import { useFonts } from 'expo-font';
 import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
@@ -21,10 +24,12 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <Routes />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
+        <Routes />
+      </View>
+    </Provider>
   );
 }
 
