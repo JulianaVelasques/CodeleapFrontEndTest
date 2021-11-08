@@ -1,26 +1,48 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
-import { theme } from '../../global/styles/theme';
+import { useDispatch, useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit'; //To generate radom id
+
+import { postAdded } from '../../redux/reducers';
 
 import { ButtonIcon } from '../ButtonIcon';
 
+import { theme } from '../../global/styles/theme';
 import { styles } from './styles';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { setPosts } from './../../redux/reducers';
+// const DEFAULT_TITLE = {
+//   title: '',
+// };
+
+// const DEFAULT_CONTENT = {
+//   content: '',
+// };
 
 export function PostInput() {
   const [title, setTitle] = useState({});
   const [content, setContent] = useState({});
 
   const dispatch = useDispatch();
+
   const createPost = () => {
-    console.log('createPost iniciado');
+    if (title && content) {
+      dispatch(
+        postAdded({
+          id: nanoid(),
+          title,
+          content,
+        })
+      );
 
-    dispatch(setPosts({ posts: [{ id: 1, title, content }] }));
-
-    console.log('createPost finalizado');
+      setTitle('');
+      setContent('');
+    }
   };
+
+  // const handleResetForm = useCallback(() => {
+  //   setTitle(DEFAULT_TITLE);
+  //   setContent(DEFAULT_CONTENT);
+  // }, []);
 
   return (
     <View style={styles.container}>

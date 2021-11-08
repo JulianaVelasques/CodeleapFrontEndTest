@@ -79,7 +79,9 @@ export function PostContent({ name, time, title, content, hasIcons }: Props) {
 
       {/* Edit item modal */}
       <Modal visible={modalEdit} onRequestClose={() => setModalDelete(false)} transparent={true}>
-        <PostInput />
+        <View style={[styles.centeredView, modalBackgroundStyle]}>
+          <PostInput />
+        </View>
       </Modal>
     </View>
   );

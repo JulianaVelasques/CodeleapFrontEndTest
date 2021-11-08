@@ -11,28 +11,18 @@ import { styles } from './styles';
 export function MainScreen() {
   const [postsList, setPostsList] = useState([]);
 
-  // @ts-ignore
-  const posts = useSelector((state) => state.postsState.posts);
+  //@ts-ignore
+  const posts = useSelector((state) => state.posts);
 
-  useEffect(() => {
-    setPostsList(posts);
-  }, []);
-
-  // useCallback((posts: any) => {
-  //   setPostsList((previous-Posts: any) => {
-  //     posts.append(previousPosts, posts);
-  //   });
-  // }, []);
+  const renderedPosts = posts.map((post: any) => (
+    <PostContent name={'@Juliana'} time={'25 minutes ago'} title={post.title} content={post.content} hasIcons={true} />
+  ));
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
         <PostInput />
-
-        {/* {postsList.map((post: any) => {
-          <PostContent name={'@Juliana'} time={'25 minutes ago'} title={post.title} content={post.content} />;
-        })} */}
-
+        {renderedPosts}
         <PostContent
           name={'@Juliana'}
           time={'25 minutes ago'}
