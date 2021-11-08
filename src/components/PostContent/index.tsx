@@ -9,6 +9,7 @@ import { styles } from './styles';
 import { theme } from '../../global/styles/theme';
 
 type Props = {
+  id?: string;
   name: string;
   time: string;
   title: string;
@@ -16,7 +17,7 @@ type Props = {
   hasIcons?: boolean;
 };
 
-export function PostContent({ name, time, title, content, hasIcons }: Props) {
+export function PostContent({ id, name, time, title, content, hasIcons }: Props) {
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
 
@@ -86,7 +87,7 @@ export function PostContent({ name, time, title, content, hasIcons }: Props) {
       {/* Edit item modal */}
       <Modal visible={modalEdit} onRequestClose={() => setModalEdit(false)} transparent={true}>
         <View style={[styles.centeredView, modalBackgroundStyle]}>
-          <PostEdit closeModal={() => closeModal()} />
+          <PostEdit idDoPost={String(id)} closeModal={() => closeModal()} />
         </View>
       </Modal>
     </View>

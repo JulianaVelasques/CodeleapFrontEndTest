@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
+    width: '100%',
     height: 50,
     backgroundColor: theme.colors.secondary100,
     paddingRight: 10,
@@ -20,6 +21,7 @@ export const styles = StyleSheet.create({
   title: {
     fontFamily: theme.fonts.text700,
     fontSize: 17,
+    width: '100%',
     marginBottom: 'auto',
     marginTop: 'auto',
     color: theme.colors.primary,
