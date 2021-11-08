@@ -15,7 +15,14 @@ export function MainScreen() {
   const posts = useSelector((state) => state.posts);
 
   const renderedPosts = posts.map((post: any) => (
-    <PostContent name={'@Juliana'} time={'25 minutes ago'} title={post.title} content={post.content} hasIcons={true} />
+    <PostContent
+      key={post.id}
+      name={'@Juliana'}
+      time={'25 minutes ago'}
+      title={post.title}
+      content={post.content}
+      hasIcons={true}
+    />
   ));
 
   return (

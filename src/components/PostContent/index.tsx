@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, Modal, Pressable, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, Modal } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { ButtonIcon } from '../ButtonIcon';
+import { PostEdit } from '../PostEdit';
 
 import { styles } from './styles';
 import { theme } from '../../global/styles/theme';
-import { PostInput } from '../PostInput';
+
 type Props = {
   name: string;
   time: string;
@@ -21,6 +22,11 @@ export function PostContent({ name, time, title, content, hasIcons }: Props) {
 
   const modalBackgroundStyle = {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  };
+
+  const closeModal = () => {
+    console.log('entrando aquiii noo closemodal');
+    setModalEdit(false);
   };
 
   return (
@@ -43,7 +49,7 @@ export function PostContent({ name, time, title, content, hasIcons }: Props) {
             size={15}
             color={theme.colors.primary}
             style={styles.icon}
-            onPress={() => setModalEdit(false)}
+            onPress={() => setModalEdit(true)}
           />
         )}
       </View>
@@ -78,9 +84,9 @@ export function PostContent({ name, time, title, content, hasIcons }: Props) {
       </Modal>
 
       {/* Edit item modal */}
-      <Modal visible={modalEdit} onRequestClose={() => setModalDelete(false)} transparent={true}>
+      <Modal visible={modalEdit} onRequestClose={() => setModalEdit(false)} transparent={true}>
         <View style={[styles.centeredView, modalBackgroundStyle]}>
-          <PostInput />
+          <PostEdit closeModal={() => closeModal()} />
         </View>
       </Modal>
     </View>

@@ -1,40 +1,38 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit'; //To generate radom id
 
-import { postAdded } from '../../redux/reducers';
+import { postUpdated } from '../../redux/reducers';
 
 import { ButtonIcon } from '../ButtonIcon';
 
 import { theme } from '../../global/styles/theme';
 import { styles } from './styles';
 
-export function PostInput() {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+type Props = {
+  closeModal: () => void;
+};
+
+export function PostEdit({ closeModal }: Props) {
+  //@ts-ignore
+  const post = useSelector((state) => state.posts.find((post: any) => post.id));
+
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
 
   const dispatch = useDispatch();
 
-  const createPost = () => {
+  const savePost = () => {
     if (title && content) {
-      dispatch(
-        postAdded({
-          id: nanoid(),
-          title,
-          content,
-        })
-      );
-
-      setTitle('');
-      setContent('');
+      console.log('entrando no savepost');
+      dispatch(postUpdated({ id: post.id, title, content }));
     }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>What's on your mind?</Text>
+        <Text style={styles.title}>Edit item</Text>
 
         <View style={styles.wrapper}>
           <Text style={styles.text}>Title</Text>
@@ -52,10 +50,13 @@ export function PostInput() {
 
         <View style={styles.button}>
           <ButtonIcon
-            title="CREATE"
+            title="SAVE"
             background={theme.colors.secondary100}
             textColor={theme.colors.primary}
-            onPress={() => createPost()}
+            onPress={() => {
+              savePost();
+              closeModal();
+            }}
           />
         </View>
       </View>
