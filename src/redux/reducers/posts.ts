@@ -6,6 +6,7 @@ const initialState = [
     title: 'My First Post At CodeLeap Network!',
     content:
       'Curabitur suscipit suscipit tellus. Phasellus consectetuer vestibulum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas egestas arcu quis ligula mattis placerat. Duis vel nibh at velit scelerisque suscipit. Duis lobortis massa imperdiet quam. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Fusce a quam. Nullam vel sem. Nullam cursus lacinia erat.',
+    date: '',
   },
 ];
 
@@ -28,9 +29,13 @@ export const postsSlice = createSlice({
       const { id } = action.payload;
       return (state = state.filter((post) => post.id !== id));
     },
+    sortPost(state, action) {
+      state.push(...action.payload);
+      state.sort((a, b) => b.date.localeCompare(a.date));
+    },
   },
 });
 
-export const { postAdded, postUpdated, postDeleted } = postsSlice.actions;
+export const { postAdded, postUpdated, postDeleted, sortPost } = postsSlice.actions;
 
 export default postsSlice.reducer;

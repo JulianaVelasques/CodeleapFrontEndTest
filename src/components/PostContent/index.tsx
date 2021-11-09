@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { View, Text, Modal } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { postDeleted } from '../../redux/reducers/posts';
 
@@ -13,7 +13,6 @@ import { theme } from '../../global/styles/theme';
 
 type Props = {
   id?: string;
-  idPostDel?: string;
   name: string;
   time: string;
   title: string;
@@ -21,27 +20,26 @@ type Props = {
   hasIcons?: boolean;
 };
 
-export function PostContent({ id, idPostDel, name, time, title, content, hasIcons }: Props) {
+export function PostContent({ id, name, time, title, content, hasIcons }: Props) {
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
 
-  //@ts-ignore
-  const post = useSelector((state) => state.posts.find((post) => post.id == id));
-
+  //To set modal background opacity
   const modalBackgroundStyle = {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   };
 
+  //handling post deletion
   const dispatch = useDispatch();
 
   const deletePost = () => {
     if (id) {
       dispatch(postDeleted({ id: id }));
     }
-
     setModalDelete(false);
   };
 
+  //To use in modalEdit to get close the modal component using the useState of the PostContent component
   const closeModal = () => {
     setModalEdit(false);
   };
@@ -73,15 +71,14 @@ export function PostContent({ id, idPostDel, name, time, title, content, hasIcon
 
       <View style={styles.wrapper}>
         <View style={styles.wrapperData}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.time}>{time}</Text>
+          <Text style={styles.name}>@{name}</Text>
+          <Text style={styles.time}>{time} ago</Text>
         </View>
 
         <Text style={styles.content}>{content}</Text>
       </View>
 
       {/* Delete item modal */}
-
       <Modal animationType="fade" visible={modalDelete} onRequestClose={() => setModalDelete(false)} transparent={true}>
         <View style={[styles.centeredView, modalBackgroundStyle]}>
           <View style={styles.modalContainer}>

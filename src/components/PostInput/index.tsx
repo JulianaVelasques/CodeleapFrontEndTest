@@ -23,6 +23,7 @@ export function PostInput() {
           id: nanoid(),
           title,
           content,
+          date: Date.now(), //to get the date the post was created
         })
       );
 

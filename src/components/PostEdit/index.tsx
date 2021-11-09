@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,7 +10,9 @@ import { theme } from '../../global/styles/theme';
 import { styles } from './styles';
 
 type Props = {
+  //Created to use a function closeModal on the father element (PostContent)
   closeModal: () => void;
+  //Created to be able to get the id from the PostContent
   idPost: string;
 };
 
@@ -18,22 +20,18 @@ export function PostEdit({ closeModal, idPost }: Props) {
   //@ts-ignore
   const post = useSelector((state) => state.posts.find((post) => post.id == idPost));
 
+  //Geting the current value through the post id and setting it to the current state
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
 
+  //Hadling post updating
   const dispatch = useDispatch();
 
   const savePost = () => {
     if (title && content) {
-      console.log('entrando no savepost');
       dispatch(postUpdated({ id: post.id, title, content }));
     }
   };
-
-  useEffect(() => {
-    console.log('id do usuario');
-    console.log(idPost);
-  });
 
   return (
     <View style={styles.container}>

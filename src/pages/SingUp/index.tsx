@@ -20,7 +20,7 @@ export function SingUp() {
     if (user) {
       dispatch(
         userAdded({
-          id: nanoid(),
+          id: nanoid(), //To generate radom id
           user,
         })
       );
