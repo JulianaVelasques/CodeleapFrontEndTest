@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit'; //To generate radom id
 
-import { postAdded } from '../../redux/reducers';
+import { postAdded } from '../../redux/reducers/posts';
 
 import { ButtonIcon } from '../ButtonIcon';
 

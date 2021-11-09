@@ -19,9 +19,9 @@ export const styles = StyleSheet.create({
     paddingRight: 10,
   },
   title: {
+    width: '74%',
     fontFamily: theme.fonts.text700,
     fontSize: 17,
-    width: '100%',
     marginBottom: 'auto',
     marginTop: 'auto',
     color: theme.colors.primary,
@@ -31,6 +31,7 @@ export const styles = StyleSheet.create({
   icon: {
     marginBottom: 'auto',
     marginTop: 'auto',
+    position: 'relative',
   },
   wrapper: {
     padding: 10,

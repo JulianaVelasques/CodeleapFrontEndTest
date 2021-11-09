@@ -1,22 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { ScrollView, View, BackHandler } from 'react-native';
+import React from 'react';
+import { ScrollView, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { PostContent } from '../../components/PostContent';
 import { PostInput } from '../../components/PostInput';
 
-import { useSelector } from 'react-redux';
-
 import { styles } from './styles';
-import { postAdded } from '../../redux/reducers';
 
 export function MainScreen() {
-  const [postsList, setPostsList] = useState([]);
-
   //@ts-ignore
   const posts = useSelector((state) => state.posts);
 
   const renderedPosts = posts.map((post: any) => (
     <PostContent
+      key={post.id}
       name={'@Juliana'}
       time={'25 minutes ago'}
       title={post.title}

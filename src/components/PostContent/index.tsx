@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, Modal } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { postDeleted } from '../../redux/reducers/posts';
 
 import { ButtonIcon } from '../ButtonIcon';
 import { PostEdit } from '../PostEdit';
@@ -10,6 +13,7 @@ import { theme } from '../../global/styles/theme';
 
 type Props = {
   id?: string;
+  idPostDel?: string;
   name: string;
   time: string;
   title: string;
@@ -17,16 +21,28 @@ type Props = {
   hasIcons?: boolean;
 };
 
-export function PostContent({ id, name, time, title, content, hasIcons }: Props) {
+export function PostContent({ id, idPostDel, name, time, title, content, hasIcons }: Props) {
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+
+  //@ts-ignore
+  const post = useSelector((state) => state.posts.find((post) => post.id == id));
 
   const modalBackgroundStyle = {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   };
 
+  const dispatch = useDispatch();
+
+  const deletePost = () => {
+    if (id) {
+      dispatch(postDeleted({ id: id }));
+    }
+
+    setModalDelete(false);
+  };
+
   const closeModal = () => {
-    console.log('entrando aquiii noo closemodal');
     setModalEdit(false);
   };
 
@@ -78,7 +94,12 @@ export function PostContent({ id, name, time, title, content, hasIcons }: Props)
                 borderColor={theme.colors.secondary100}
                 onPress={() => setModalDelete(false)}
               />
-              <ButtonIcon title="OK" background={theme.colors.primary} textColor={theme.colors.secondary100} />
+              <ButtonIcon
+                title="OK"
+                background={theme.colors.primary}
+                textColor={theme.colors.secondary100}
+                onPress={() => deletePost()}
+              />
             </View>
           </View>
         </View>
@@ -87,7 +108,7 @@ export function PostContent({ id, name, time, title, content, hasIcons }: Props)
       {/* Edit item modal */}
       <Modal visible={modalEdit} onRequestClose={() => setModalEdit(false)} transparent={true}>
         <View style={[styles.centeredView, modalBackgroundStyle]}>
-          <PostEdit idDoPost={String(id)} closeModal={() => closeModal()} />
+          <PostEdit idPost={String(id)} closeModal={() => closeModal()} />
         </View>
       </Modal>
     </View>

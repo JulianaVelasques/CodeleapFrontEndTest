@@ -24,9 +24,13 @@ export const postsSlice = createSlice({
         existingPost.content = content;
       }
     },
+    postDeleted(state, action) {
+      const { id } = action.payload;
+      return (state = state.filter((post) => post.id !== id));
+    },
   },
 });
 
-export const { postAdded, postUpdated } = postsSlice.actions;
+export const { postAdded, postUpdated, postDeleted } = postsSlice.actions;
 
 export default postsSlice.reducer;

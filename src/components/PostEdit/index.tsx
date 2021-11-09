@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { postUpdated } from '../../redux/reducers';
+import { postUpdated } from '../../redux/reducers/posts';
 
 import { ButtonIcon } from '../ButtonIcon';
 
@@ -11,12 +11,12 @@ import { styles } from './styles';
 
 type Props = {
   closeModal: () => void;
-  idDoPost: string;
+  idPost: string;
 };
 
-export function PostEdit({ closeModal, idDoPost }: Props) {
+export function PostEdit({ closeModal, idPost }: Props) {
   //@ts-ignore
-  const post = useSelector((state) => state.posts.find((post) => post.id == idDoPost));
+  const post = useSelector((state) => state.posts.find((post) => post.id == idPost));
 
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
@@ -32,13 +32,12 @@ export function PostEdit({ closeModal, idDoPost }: Props) {
 
   useEffect(() => {
     console.log('id do usuario');
-    console.log(idDoPost);
+    console.log(idPost);
   });
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>blablal</Text>
         <Text style={styles.title}>Edit item</Text>
 
         <View style={styles.wrapper}>
