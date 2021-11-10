@@ -1,3 +1,4 @@
+import { formatDistanceToNow } from 'date-fns';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -12,6 +13,7 @@ export function MainScreen() {
   const posts = useSelector((state) => state.posts);
   //@ts-ignore
   const users = useSelector((state) => state.users);
+  console.log(users);
 
   //Created to be able to get the username received from the input on the singUp page and set it as the name prop.
   const userMap = users.map((user: any) => user.user);
@@ -19,13 +21,21 @@ export function MainScreen() {
   //Create to be able to get the data to use when sorting the post and to setting the time prop.
   //Not implemented, but I'll keep trying
   const date = posts.map((post: any) => post.date);
+  console.log(date);
+
+  //The timeAgo is working, but I can't get only the date from the post id to use on it.
+  const timeNow = new Date();
+  console.log(timeNow);
+
+  const timeAgo = formatDistanceToNow(timeNow);
+  console.log(timeAgo);
 
   //This variable was created to render the new posts entries
   const renderedPosts = posts.map((post: any) => (
     <PostContent
       key={post.id}
       name={userMap}
-      time={'25 minutes'}
+      time={post.date}
       title={post.title}
       content={post.content}
       hasIcons={true}

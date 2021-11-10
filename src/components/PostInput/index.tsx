@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit'; //To generate radom id
@@ -9,6 +9,7 @@ import { ButtonIcon } from '../ButtonIcon';
 
 import { theme } from '../../global/styles/theme';
 import { styles } from './styles';
+import { formatISO } from 'date-fns';
 
 export function PostInput() {
   const [title, setTitle] = useState('');
@@ -21,9 +22,9 @@ export function PostInput() {
       dispatch(
         postAdded({
           id: nanoid(),
+          date: formatISO(new Date()), //to get the date the post was created
           title,
           content,
-          date: Date.now(), //to get the date the post was created
         })
       );
 

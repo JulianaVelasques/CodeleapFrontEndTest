@@ -46,10 +46,12 @@ export function PostEdit({ closeModal, idPost }: Props) {
         <Text style={styles.text}>Content</Text>
         <TextInput
           style={[styles.inputContent, styles.input]}
-          multiline={true}
+          multiline
+          numberOfLines={5}
           placeholder="Content here"
           value={content}
           onChangeText={setContent}
+          textAlign="left"
         />
 
         <View style={styles.button}>

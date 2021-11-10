@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, nanoid } from '@reduxjs/toolkit';
 
 const initialState = [
   {
@@ -6,7 +6,7 @@ const initialState = [
     title: 'My First Post At CodeLeap Network!',
     content:
       'Curabitur suscipit suscipit tellus. Phasellus consectetuer vestibulum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas egestas arcu quis ligula mattis placerat. Duis vel nibh at velit scelerisque suscipit. Duis lobortis massa imperdiet quam. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Fusce a quam. Nullam vel sem. Nullam cursus lacinia erat.',
-    date: '',
+    date: '25 minutes',
   },
 ];
 
@@ -36,6 +36,7 @@ export const postsSlice = createSlice({
   },
 });
 
+// Action creators are generated for each case reducer function
 export const { postAdded, postUpdated, postDeleted, sortPost } = postsSlice.actions;
 
 export default postsSlice.reducer;

@@ -20,14 +20,12 @@ export const styles = StyleSheet.create({
   wrapper: {
     marginTop: 15,
   },
-
   text: {
     fontFamily: theme.fonts.text400,
-    fontSize: 12,
+    fontSize: 14,
   },
   input: {
     width: '100%',
-    fontSize: 10,
     marginTop: 2,
     marginBottom: 8,
     borderRadius: 4,

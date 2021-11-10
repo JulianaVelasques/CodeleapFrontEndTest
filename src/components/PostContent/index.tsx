@@ -10,11 +10,12 @@ import { PostEdit } from '../PostEdit';
 
 import { styles } from './styles';
 import { theme } from '../../global/styles/theme';
+import { formatDistanceToNow } from 'date-fns';
 
 type Props = {
   id?: string;
   name: string;
-  time: string;
+  time: any;
   title: string;
   content: string;
   hasIcons?: boolean;
@@ -43,6 +44,8 @@ export function PostContent({ id, name, time, title, content, hasIcons }: Props)
   const closeModal = () => {
     setModalEdit(false);
   };
+
+  //time Ago
 
   return (
     <View style={styles.container}>
